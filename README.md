@@ -1,4 +1,4 @@
-# 简记 SimpleDiary
+# 日迹 SimpleDiary
 
 极简本地日记 App（Android 原生：Kotlin + Jetpack Compose + Room）。
 
