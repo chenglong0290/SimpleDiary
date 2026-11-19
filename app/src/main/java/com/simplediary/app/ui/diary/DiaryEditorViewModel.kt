@@ -75,6 +75,11 @@ class DiaryEditorViewModel(
         return repository.finalizeEditor(entryId, _body.value, _moodColor.value)
     }
 
+    /** Permanently delete this diary and its media files. */
+    suspend fun deleteDiary() {
+        repository.deleteEntry(entryId)
+    }
+
     class Factory(
         private val entryId: Long,
         private val repository: DiaryRepository
