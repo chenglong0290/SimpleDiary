@@ -1,6 +1,7 @@
 package com.simplediary.app.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -29,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.simplediary.app.data.DiaryEntry
+import com.simplediary.app.data.MoodColors
 import com.simplediary.app.util.DateUtils
 
 @Composable
@@ -55,6 +57,17 @@ fun DiaryListItem(
                 .height(28.dp)
                 .clip(RoundedCornerShape(2.dp))
                 .background(Color(entry.moodColor))
+                .then(
+                    if (MoodColors.isWhite(entry.moodColor)) {
+                        Modifier.border(
+                            width = 1.dp,
+                            color = MaterialTheme.colorScheme.outline,
+                            shape = RoundedCornerShape(2.dp)
+                        )
+                    } else {
+                        Modifier
+                    }
+                )
         )
         Spacer(modifier = Modifier.width(14.dp))
         Text(

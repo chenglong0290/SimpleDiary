@@ -1,7 +1,7 @@
 package com.simplediary.app.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,17 +29,21 @@ fun MoodColorPicker(
     ) {
         MoodColors.palette.forEach { color ->
             val isSelected = color == selected
+            // White (and any very light swatch) needs an outline to stay visible.
+            val outline = when {
+                isSelected -> MaterialTheme.colorScheme.onSurface
+                MoodColors.isWhite(color) -> MaterialTheme.colorScheme.outline
+                else -> Color.Transparent
+            }
             Box(
                 modifier = Modifier
                     .size(28.dp)
                     .clip(CircleShape)
                     .background(Color(color))
-                    .then(
-                        if (isSelected) {
-                            Modifier.border(2.dp, MaterialTheme.colorScheme.onSurface, CircleShape)
-                        } else {
-                            Modifier
-                        }
+                    .border(
+                        width = if (isSelected || MoodColors.isWhite(color)) 2.dp else 0.dp,
+                        color = outline,
+                        shape = CircleShape
                     )
                     .clickable { onSelect(color) }
             )

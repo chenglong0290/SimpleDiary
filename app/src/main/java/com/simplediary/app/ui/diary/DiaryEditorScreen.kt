@@ -5,6 +5,7 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -52,6 +53,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.simplediary.app.data.MediaType
+import com.simplediary.app.data.MoodColors
 import com.simplediary.app.ui.components.MediaAttachmentRow
 import com.simplediary.app.ui.components.MoodColorPicker
 import kotlinx.coroutines.launch
@@ -254,11 +256,26 @@ fun DiaryEditorScreen(
                         .size(56.dp)
                         .clip(CircleShape)
                         .background(Color(moodColor))
+                        .then(
+                            if (MoodColors.isWhite(moodColor)) {
+                                Modifier.border(
+                                    width = 1.dp,
+                                    color = MaterialTheme.colorScheme.outline,
+                                    shape = CircleShape
+                                )
+                            } else {
+                                Modifier
+                            }
+                        )
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.Palette,
                         contentDescription = "心情颜色",
-                        tint = Color.White
+                        tint = if (MoodColors.isDark(moodColor)) {
+                            Color.White
+                        } else {
+                            Color(0xFF1F2A33)
+                        }
                     )
                 }
                 DropdownMenu(
